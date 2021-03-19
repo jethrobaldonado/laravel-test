@@ -26,7 +26,13 @@ class CommentService
 
     public function getAll() : CommentCollection
     {
-        $comments = Comment::whereNull('parent_id')->with('recurseChildren')->get();
+        $comments = Comment::whereNull('parent_id')
+            ->with([
+                'recurseChildren' => function ($query) {
+                    $query->orderByDesc('created_at');
+                }
+            ])
+            ->orderByDesc('created_at')->get();
 
         return new CommentCollection($comments);
     }
