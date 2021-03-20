@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class CommentResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class CommentResource extends JsonResource
             'name' => $this->user_name,
             'comment' => $this->comment,
             'parent_id' => $this->parent_id,
-            'created_at' => $this->created_at,
+            'created_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
             'sub_comments' => CommentResource::collection($this->whenLoaded('recurseChildren'))
         ];
     }

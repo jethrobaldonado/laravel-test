@@ -15,7 +15,7 @@ class CommentService
         $comment->user_name = $data->name;
         $comment->comment = $data->comment;
 
-        if ($data->parent_id) {
+        if ($data->parent_id && $data->parent_id != 'false') {
             $comment->parent_id = $data->parent_id;
         }
 
