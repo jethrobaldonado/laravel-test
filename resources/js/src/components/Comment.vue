@@ -13,9 +13,9 @@
           {{ data.comment }}
         </div>
       </div>
-      <div class="flex flex-row">
+      <div class="flex flex-row" v-if="parentDepth < 3">
         <div class="w-1/2">
-          <button type="button" class="" @click="showForm">
+          <button type="button" class="font-semibold text-indigo-500" @click="showForm">
             Reply
           </button>
         </div>
@@ -28,10 +28,12 @@
         <div
           v-for="comment in data.sub_comments"
         >
+
         <Comment
           :key="comment.id"
           v-bind:data="comment"
           :createComment="createComment"
+          :parentDepth="depth"
         />
       </div>
       </div>
@@ -50,11 +52,13 @@
       data: {
         type: Object
       },
-      createComment: Function
+      createComment: Function,
+      parentDepth: Number
     },
     data() {
       return {
-        formVisible: false
+        formVisible: false,
+        depth: parseInt(this.parentDepth) + 1,
       }
     },
     methods: {

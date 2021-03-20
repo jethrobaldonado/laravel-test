@@ -9,6 +9,7 @@
           :key="comment.id"
           v-bind:data="comment"
           :createComment="createComment"
+          parentDepth="0"
         />
       </div>
     </div>
